@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\home",
+    "\\src\\app\\login",
+    "\\src\\app\\_shared",
+    "\\src\\app\\_shared\\directives",
+    "\\src\\styles"
+  ],
+  "SelectedNode": "\\src\\app\\_shared\\enum.ts",
+  "PreviewInSolutionExplorer": false
+}

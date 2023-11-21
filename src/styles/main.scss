@@ -1,0 +1,323 @@
+
+@import "./variables";
+@import "./mixin";
+
+/*#region main + reset */
+
+* {
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  text-decoration: none;
+  font-weight: normal;
+  font-size: inherit;
+  color: inherit;
+  outline: none;
+  list-style-type: none;
+}
+
+*:focus {
+  outline: none;
+}
+
+html, body, #main {
+  width: 100%;
+  height: 100%;
+  padding: 0px;
+  margin: 0px;
+  overflow: hidden;
+}
+
+body {
+  color: $MainFontColor;
+  direction: $direction;
+}
+
+a, .mat-icon {
+  cursor: pointer;
+}
+
+.mat-icon {
+  height: auto !important;
+  width: auto !important;
+}
+
+input {
+  @include input($Color1, $MainBackgroundColor, $MainFontColor);
+}
+
+button {
+  @include button($Color1, $MainBackgroundColor, $Color1);
+}
+/*#endregion main + reset */
+
+
+/*#region commun classes */
+.clear {
+  clear: both;
+}
+
+.page_container {
+  display: none;
+  height: 100%;
+
+  .animated_section {
+    margin-top: 20px;
+    opacity: 0;
+  }
+}
+/*#endregion commun classes */
+
+
+/*#region form */
+form {
+  .form_field {
+    position: relative;
+    padding-top: 1.2rem;
+    margin-bottom: 1rem;
+
+    label {
+      position: absolute;
+      top: 1.9rem;
+      @include position($direction, left, 0.5rem);
+      text-transform: capitalize;
+      pointer-events: none;
+      color: $Color1;
+      font-size: 1rem;
+    }
+
+    input.input_with_icon {
+      width: calc(100% - 2rem);
+      @include padding($direction, right, 1.5rem);
+    }
+
+    input:focus ~ label, input:not([ng-reflect-model=""]) ~ label {
+      top: 0px;
+    }
+
+    .form_icon {
+      position: absolute;
+      @include position($direction, right, 0.1rem);
+      bottom: 0.4rem;
+      font-size: 1.5rem;
+      color: $Color1;
+    }
+
+    .form_icon:hover {
+      font-size: 2rem;
+    }
+  }
+
+  .frm_submit {
+    @include button($Color1, $MainBackgroundColor, $Color1);
+    width: 100%;
+    margin-top: 1rem;
+    text-align: center;
+  }
+
+  .frm_submit:hover {
+    background-color: $Color1;
+    color: $MainBackgroundColor;
+  }
+}
+
+form.ng-submitted input.ng-invalid {
+  border: 1px solid red;
+
+  ~ label {
+    color: red;
+  }
+}
+/*#endregion form */
+
+/*#region search_grid */
+.search_grid {
+  min-width: 100%;
+  margin-top: 3rem;
+  border-collapse: collapse;
+  overflow-x: auto;
+
+  th {
+    background-color: $Color1;
+  }
+
+  th, td {
+    position: relative;
+    padding: 0.4rem 0.3rem;
+    border-left: 1px solid $Color1;
+    border-right: 1px solid $Color1;
+    text-align: left;
+  }
+
+  .grid_icon_container {
+    display: none;
+    position: absolute;
+    top: 0px;
+    @include position($direction, right, 0px);
+    height: 100%;
+
+    .grid_icon {
+      float: right;
+      margin: 0.15rem 0.1rem;
+      font-size: 1.4rem;
+    }
+
+    .grid_icon:hover {
+      font-size: 1.6rem;
+    }
+  }
+
+  tr:hover .grid_icon_container,
+  tr .grid_icon_container.keep_visible {
+    display: block;
+  }
+
+  tr:hover {
+    background-color: $Color1;
+  }
+
+  .filter_grid_box,
+  .sort_grid_box {
+    position: absolute;
+    top: 100%;
+    @include position($direction, right, 0px);
+    min-width: 150px;
+    padding: 0.5rem;
+    border: 1px solid $Color1;
+    background-color: $MainFontColor;
+    color: #fff;
+    border-radius: 0px 0px 5px 5px;
+    box-shadow: 0px 0px 35px -13px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 0px 0px 35px -13px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 35px -13px rgba(0, 0, 0, 0.75);
+    z-index: 1;
+
+    input {
+      width: 15rem;
+    }
+
+    li {
+      padding: 0.25rem 0px;
+      cursor: pointer;
+
+      .filter_grid_box_icon,
+      .sort_grid_box {
+        float: left;
+        width: 1.3rem;
+        height: 1.3rem;
+        color: green;
+
+        .mat-icon {
+          font-size: 0.9rem;
+        }
+      }
+    }
+
+    li:hover {
+      font-weight: bold;
+    }
+  }
+}
+/*#endregion search_grid */
+
+/*#region login page */
+#login {
+  display: none;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  #login_bg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("../images/login_bg.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    opacity: 0.8;
+    z-index: -1;
+  }
+
+  #frmLogin_container {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.9;
+
+    #frmLogin {
+      width: 75%;
+      max-width: 400px;
+      padding: 40px 30px;
+      border-radius: 8px;
+      background-color: rgba(201, 201, 201, 0.7);
+
+      .frm_btn {
+        width: 100%;
+        background-color: #6e7d95;
+      }
+
+      .frm_btn:hover {
+        color: #6e7d95;
+        background-color: #262e3a;
+      }
+    }
+  }
+}
+/*#endregion login page */
+
+/*#region home page */
+#home {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  #header {
+    height: 10%;
+    min-height: 55px;
+    background: linear-gradient(90deg, $MenuBackgroudStart 0%, $MenuBackgroudStart $MenuWidth, $MenuBackgroudEnd 100%);
+  }
+
+  #body_content_container {
+    height: 100%;
+    overflow: hidden;
+
+    #menu_container {
+      @include float_left($direction);
+      width: $MenuWidth;
+      height: 100%;
+      background-color: $MenuBackgroudStart;
+
+      ul li {
+        width: 100%;
+
+        a {
+          display: block;
+          width: calc(100% - 1rem);
+          padding: 0.5rem;
+          color: #fff;
+          text-transform: capitalize;
+          border-bottom: 1px solid #fff;
+        }
+
+        a:hover {
+          background-color: $Color1;
+        }
+      }
+    }
+
+    #body_content {
+      @include float_left($direction);
+      width: calc((100% - $MenuWidth) - 3rem);
+      height: calc(100% - 1.5rem - 20px);
+      padding: 1.5rem 1.5rem 20px 1.5rem;
+      background-color: $MainBackgroundColor;
+      overflow: auto;
+    }
+  }
+}
+/*#endregion home page */
+
+@import "./responsive";

@@ -1,0 +1,11 @@
+/*#region mobile */
+@media screen and (max-width: 425px) {
+  #menu_container {
+    display: none;
+  }
+
+  #body_content {
+    width: calc(100% - 3rem) !important;
+  }
+}
+/*#endregion mobile */

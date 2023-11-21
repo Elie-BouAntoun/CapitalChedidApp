@@ -1,0 +1,123 @@
+<div class="page_container">
+  <div id="home">
+    <div id="header"></div>
+    <div id="body_content_container">
+      <div id="menu_container">
+        <ul>
+          <li><a routerLink="/home">Search Quotations</a></li>
+        </ul>
+      </div>
+      <div id="body_content">
+        <div class="animated_section">
+          <form>
+            <div class="form_field">
+              <input type="text" name="txtSearch" class="input_with_icon" [(ngModel)]="search_value" (keyup.enter)="Search()" />
+              <label>Search quotations</label>
+              <mat-icon class="form_icon" aria-hidden="false" aria-label="Search" fontIcon="search" (click)="Search()"></mat-icon>
+            </div>
+          </form>
+          <div class="search_grid_container">
+            <table class="search_grid">
+              <tr>
+                <th *ngFor="let column of quotations_grid_columns">
+                  {{ column.DisplayName }}
+                  <div [id]="column.DBName + '_icons'"
+                       [class]="'grid_icon_container ' + (quotations_search_column_criteria.DBName == column.DBName || quotations_sort_visible == column.DBName ? 'keep_visible' : '')">
+                    <mat-icon class="grid_icon" aria-hidden="false" aria-label="Filter" fontIcon="filter_list" *ngIf="column.IsSearchable"
+                              (click)="$event.stopPropagation(); ToggleFilterBox(column)">
+                      <!--stopPropagation is used to stop clickOutside from triggering-->
+                    </mat-icon>
+                    <mat-icon class="grid_icon" aria-hidden="false" aria-label="Sort" fontIcon="sort" *ngIf="column.IsSortable"
+                              (click)="$event.stopPropagation(); ToggleSortBox(column.DBName)">
+                    </mat-icon>
+                  </div>
+                  <div class="filter_grid_box" *ngIf="quotations_search_column_criteria.DBName == column.DBName" (clickOutside)="ToggleFilterBox(column)">
+                    <!--(clickOutside) is added here and not to the parent div to avoid triggering the function when not needed-->
+                    <div [ngSwitch]="column.DataType">
+                      <div *ngSwitchCase="data_types_enum.String">
+                        <input type="text" name="quotation_search_value" [(ngModel)]="quotations_search_column_criteria.Value" (keyup.enter)="FilterGrid()" />
+                        <ul>
+                          <li (click)="SetSearchOption(grid_search_options_enum.Equals)">
+                            <span class="filter_grid_box_icon">
+                              <mat-icon aria-hidden="false" fontIcon="check"
+                                        *ngIf="quotations_search_column_criteria.SearchOption == grid_search_options_enum.Equals"></mat-icon>
+                            </span>
+                            Equals
+                          </li>
+                          <li (click)="SetSearchOption(grid_search_options_enum.Contains)">
+                            <span class="filter_grid_box_icon">
+                              <mat-icon aria-hidden="false" fontIcon="check"
+                                        *ngIf="quotations_search_column_criteria.SearchOption == grid_search_options_enum.Contains"></mat-icon>
+                            </span>
+                            Contains
+                          </li>
+                          <li (click)="SetSearchOption(grid_search_options_enum.StartsWith)">
+                            <span class="filter_grid_box_icon">
+                              <mat-icon aria-hidden="false" fontIcon="check"
+                                        *ngIf="quotations_search_column_criteria.SearchOption == grid_search_options_enum.StartsWith"></mat-icon>
+                            </span>
+                            Starts With
+                          </li>
+                          <li (click)="SetSearchOption(grid_search_options_enum.EndsWith)">
+                            <span class="filter_grid_box_icon">
+                              <mat-icon aria-hidden="false" fontIcon="check"
+                                        *ngIf="quotations_search_column_criteria.SearchOption == grid_search_options_enum.EndsWith"></mat-icon>
+                            </span>
+                            Ends With
+                          </li>
+                        </ul>
+                      </div>
+                      <div *ngSwitchCase="data_types_enum.Int">
+
+                      </div>
+                      <div *ngSwitchCase="data_types_enum.Date">
+
+                      </div>
+                    </div>
+                    <div class="filter_grid_box_btns">
+                      <button (click)="FilterGrid()">apply filter</button>
+                      <button (click)="ClearFilter()">clear filter</button>
+                      <div class="clear"></div>
+                    </div>
+                  </div>
+                  <div class="sort_grid_box" *ngIf="quotations_sort_visible == column.DBName" (clickOutside)="ToggleSortBox('')">
+                    <ul>
+                      <li (click)="SortGrid(column.DataType, grid_sort_orrder_enum.Asc)">
+                        <span class="filter_grid_box_icon">
+                          <mat-icon aria-hidden="false" fontIcon="check"
+                                    *ngIf="quotations_sort.DBName == column.DBName && quotations_sort.SortOrder == grid_sort_orrder_enum.Asc"></mat-icon>
+                        </span>
+                        Sort Ascending
+                      </li>
+                      <li (click)="SortGrid(column.DataType, grid_sort_orrder_enum.Desc)">
+                        <span class="filter_grid_box_icon">
+                          <mat-icon aria-hidden="false" fontIcon="check"
+                                    *ngIf="quotations_sort.DBName == column.DBName && quotations_sort.SortOrder == grid_sort_orrder_enum.Desc"></mat-icon>
+                        </span>
+                        Sort Descending
+                      </li>
+                    </ul>
+                    <div class="filter_grid_box_btns">
+                      <button (click)="ClearSorting()">clear filter</button>
+                      <div class="clear"></div>
+                    </div>
+                  </div>
+                </th>
+              </tr>
+              <tr *ngFor="let row of quotations_grid_datasource">
+                <td *ngFor="let column of quotations_grid_columns">{{ row[column.DBName] | transform: column.DataType }}</td>
+              </tr>
+            </table>
+            <div class="search_grid_paging">
+              <a *ngFor="let nb of quotations_nb_pages" [class.active_page]="nb == current_page_nb" (click)="GoToPage(nb)">
+                {{nb + 1}}
+              </a>
+            </div>
+          </div>          
+        </div>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+</div>
+

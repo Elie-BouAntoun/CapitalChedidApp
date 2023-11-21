@@ -1,0 +1,6 @@
+{
+  "AppSettings": {
+    "APIBaseUrl": "http://localhost:35781/api/",
+    "GridNumberOfItemsPerPage":  10
+  }
+}

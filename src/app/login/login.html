@@ -1,0 +1,18 @@
+<div id="login" class="page_container">
+  <div id="login_bg"></div>
+  <div id="frmLogin_container" class="animated_section">
+    <form id="frmLogin" (submit)="Login()" #frmLogin="ngForm">
+      <div class="form_field">
+        <input type="text" name="txtUsername" [(ngModel)]="login_data.username" required/>
+        <label>UserName</label>
+      </div>
+      <div class="form_field">
+        <input type="password" name="txtPassword" [(ngModel)]="login_data.password" required/>
+        <label>password</label>
+      </div>
+      <div class="frm_btn_container">
+        <input type="submit" class="frm_submit" value="login" />
+      </div>
+    </form>
+  </div>
+</div>

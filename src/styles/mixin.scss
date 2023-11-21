@@ -1,0 +1,115 @@
+
+@mixin input($border_color, $bg_color, $color) {
+  width: calc(100% - 1rem);
+  padding: 0.5rem;
+  background-color: $bg_color;
+  border-radius: 5px;
+  border: 1px solid $border_color;
+  font-size: 1rem;
+  color: $color;
+}
+
+@mixin button($border_color, $bg_color, $color) {
+  padding: 0.5rem;
+  background-color: $bg_color;
+  border-radius: 5px;
+  border: 1px solid $border_color;
+  font-size: 1rem;
+  color: $color;
+  cursor: pointer;
+  text-transform: capitalize;
+}
+
+@mixin float_left($direction: ltr) {
+  @if $direction == "ltr" {
+    float: left;
+  }
+  @else if $direction == "rtl" {
+    float: right;
+  }
+}
+
+@mixin float_right ($direction: ltr) {
+  @if $direction == "ltr" {
+    float: right;
+  }
+  @else if $direction == "rtl" {
+    float: left;
+  }
+}
+
+@mixin padding ($direction: ltr, $padding_direction, $value) {
+  @if $direction == "ltr" {
+    @if $padding_direction == "right" {
+      padding-right: $value;
+    }
+    @else if $padding_direction == "left" {
+      padding-left: $value;
+    }
+  }
+  @else if $direction == "rtl" {
+    @if $padding_direction == "right" {
+      padding-left: $value;
+    }
+    @else if $padding_direction == "left" {
+      padding-right: $value;
+    }
+  }
+}
+
+@mixin position ($direction: ltr, $position, $value) {
+  @if $direction == "ltr" {
+    @if $position == "right" {
+      right: $value;
+    }
+    @else if $position == "left" {
+      left: $value;
+    }
+  }
+  @else if $direction == "rtl" {
+    @if $position == "right" {
+      left: $value;
+    }
+    @else if $position == "left" {
+      right: $value;
+    }
+  }
+}
+
+@mixin margin ($direction: ltr, $margin_direction, $value) {
+  @if $direction == "ltr" {
+    @if $margin_direction == "right" {
+      margin-right: $value;
+    }
+    @else if $margin_direction == "left" {
+      margin-left: $value;
+    }
+  }
+  @else if $direction == "rtl" {
+    @if $margin_direction == "right" {
+      margin-left: $value;
+    }
+    @else if $margin_direction == "left" {
+      margin-right: $value;
+    }
+  }
+}
+
+@mixin text-align ($direction: ltr, $text_direction) {
+  @if $direction == "ltr" {
+    @if $text_direction == "right" {
+      text-align: right;
+    }
+    @else if $text_direction == "left" {
+      text-align: left;
+    }
+  }
+  @else if $direction == "rtl" {
+    @if $text_direction == "right" {
+      text-align: left;
+    }
+    @else if $text_direction == "left" {
+      text-align: right;
+    }
+  }
+}
